@@ -9,6 +9,12 @@ m = length(y); % number of training examples
 % You need to return the following variables correctly 
 J = 0;
 
+% X -> m x n+1
+% theta -> n+1 * 1
+h = X*theta;
+J = sum( (h-y).*(h-y)) / (2*length(X));
+
+
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost of a particular choice of theta
 %               You should set J to the cost.
