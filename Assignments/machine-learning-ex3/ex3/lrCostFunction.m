@@ -47,6 +47,14 @@ grad = zeros(size(theta));
 
 % =============================================================
 
-grad = grad(:);
-
+h = sigmoid(X*theta);
+%penalty = ones(size(theta));
+%penalty(1) = 0;
+%theta = theta.*penalty;
+% we have already calculated hypothesis, so can overwrite theta variable,
+% or can otherwise use penalty
+theta = [0; theta(2:end)];
+J =  ((-y)'*log(h) - (1-y)'*log(1-h)) / m + lambda * (theta') * theta/(2*m);
+grad = ((h-y)'*X)/m + (lambda * (theta')) / m;
+grad = grad';
 end
