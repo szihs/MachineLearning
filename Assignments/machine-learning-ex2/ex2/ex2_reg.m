@@ -98,7 +98,7 @@ pause;
 %  see how regularization affects the decision coundart
 %
 %  Try the following values of lambda (0, 1, 10, 100).
-%
+%  harsh - lambda = 0 ->overfitting, lambda = 10000 underfit
 %  How does the decision boundary change when you vary lambda? How does
 %  the training set accuracy vary?
 %
