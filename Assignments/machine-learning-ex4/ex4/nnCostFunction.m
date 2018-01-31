@@ -29,7 +29,27 @@ m = size(X, 1);
 J = 0;
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
+I = eye(num_labels); % each row is digit ground truth
+Y = zeros(m, num_labels);
+for i = 1:m
+    Y(i,:) = I(y(i),:);
+end
 
+a1 = [ones(m, 1) X];
+z2 = a1*(Theta1');
+a2 = sigmoid(z2);
+a2 = [ones(size(a2,1) , 1) a2];
+z3 = a2*(Theta2');
+h = sigmoid(z3);
+
+J = sum(sum( -(Y) .* log (h) - (1- Y) .* log ( 1 -h)))/m;
+
+%Theta1(:,1) = 0;
+%Theta2(:,1) = 0;
+%penalty = lambda * (sum(sum(Theta1.*Theta1)) + sum(sum(Theta2.*Theta2)))/(2*m);
+penalty = lambda * (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:, 2:end).^2)))/(2*m);
+
+J = J + penalty;
 % ====================== YOUR CODE HERE ======================
 % Instructions: You should complete the code by working through the
 %               following parts.
@@ -62,21 +82,17 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+d3 = h - Y; % 5000 x 10
+d2 = (d3 * Theta2(:, 2:end)).* sigmoidGradient(z2);  % 5000 x 26
+ % 5000 x 25
 
+Theta2_grad = ((d3') * a2)./m; % 10 x 26 i expect , 5000 x 10 .. 5000 x 26
+Theta1_grad = ((d2') * a1)./m; % 25 x 401
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+pTheta2 = (1/m).* lambda * [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)]; % remove regularization for bias term
+pTheta1 = (1/m).* lambda .* [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)]; 
+Theta2_grad = Theta2_grad + pTheta2;
+Theta1_grad = Theta1_grad + pTheta1;
 
 
 
