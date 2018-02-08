@@ -218,3 +218,12 @@ end
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
+
+%% ====== Part9 Optional Compute test set error ======
+lambda = 3;
+[theta] = trainLinearReg(X_poly, y, lambda);
+[J, gradTest] = linearRegCostFunction(X_poly_test, ytest, theta, 0);
+fprintf(['Cost at lambda = 3: %f '...
+         '\n(this value should be about 3.8599)\n'], J);
+fprintf('Program paused. Press enter to continue.\n');
+pause;
