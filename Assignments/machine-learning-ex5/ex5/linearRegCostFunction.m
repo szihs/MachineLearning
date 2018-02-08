@@ -20,6 +20,9 @@ grad = zeros(size(theta));
 %
 
 
+h =X*theta;
+J = sum((h-y)'* (h-y))./ (2*m) + sum ( (theta(2:end).^2) )* lambda / (2*m);
+grad = ((h-y)'* X)./m + lambda * ([0; theta(2:end)]')./m; % note transpose of second term, as it should be 1 xp
 
 
 
