@@ -20,8 +20,18 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
-
-
+min_dist = 1; %will update, no need of correct initialization value
+m = size(X,1);
+for i=1:m
+    for j=1:K
+       dist_i_j =  (X(i,:) - centroids(j,:)) * ( X(i,:) - centroids(j,:))';
+      % fprintf('i %d j %d dist %d min %d\n', i, j, dist_i_j, min_dist);
+       if (idx(i) == 0 || dist_i_j < min_dist),
+           idx(i) = j;
+           min_dist = dist_i_j;
+       end
+    end
+end
 
 
 

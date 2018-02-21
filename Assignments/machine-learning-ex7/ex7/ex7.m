@@ -147,7 +147,6 @@ fprintf('\nApplying K-Means to compress an image.\n\n');
 
 % Find closest cluster members
 idx = findClosestCentroids(X, centroids);
-
 % Essentially, now we have represented the image X as in terms of the
 % indices in idx. 
 
